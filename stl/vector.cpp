@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -9,6 +10,8 @@ int main()
 	 * reference : http://www.geeksforgeeks.org/vector-in-cpp-stl/
 	 * I'm not good at english :(
 	 * some parts are just copied because I cannot explain.
+	 * If you want to part of results, just disable "cout"
+	 * made by lHATAl
 	 */
 
 
@@ -153,6 +156,94 @@ int main()
 		cout << *it << '\t';
 
 	cout << endl;
+
+	/*
+	 * erase(const_iterator q) : erase element which iterator 'q' is pointing
+	 * erase(const_iterator first, const_iterator last)
+	 * => erase element(s) from iterator 'first' to iterator 'last'
+	 */
+	vector <int> d1;
+
+	for(int i=1;i<=10;i++)
+		d1.push_back(i*2);
+
+	// erase the 5th element
+	d1.erase(d1.begin() + 4);
+
+	// erase the 5 elements from first of vector
+	d1.erase(d1.begin(), d1.begin() + 5);
+
+	cout << "d1 contains : ";
+	for(int i=0;i<d1.size(); ++i)
+		cout << d1[i] << '\t';
+
+	/*
+	 * swap(vector q, vector r) : swap the contents of 'q' and 'r'
+	 * clear() : remove all elements from the vector
+	 */
+
+	vector <int> e1;
+	vector <int> e2;
+	vector <int> :: iterator ei;
+
+	e1.push_back(10);
+	e1.push_back(20);
+
+	e2.push_back(30);
+	e2.push_back(40);
+
+	cout << "Before Swapping, \n";
+	cout << "contents of vector e1 : ";
+
+	for(ei = e1.begin(); ei != e1.end(); ++ei)
+		cout << *ei << '\t';
+
+	cout << "\nContents of vector e2 : ";
+	for(ei = e2.begin(); ei != e2.end(); ++ei)
+		cout << *ei << '\t';
+
+	swap(e1,e2);
+
+	cout << "\n\nAfter Swapping, \n";
+	cout << "Contents of vector e1 : ";
+	for(ei = e1.begin(); ei != e1.end(); ++ei)
+		cout << *ei << '\t';
+
+	cout << "\nContents of vector e2 : ";
+	for(ei = e2.begin(); ei != e2.end(); ++ei)
+		cout << *ei << '\t';
+
+	cout << "\n\nNow, we clear() and then add";
+	cout << "an element 1000 to vector e1 : ";
+
+	e1.clear();
+	e1.push_back(1000);
+	cout << e1.front() << endl;
+
+	/*
+	 * lower_bound, upper_bound is in the <algorithm> header
+	 * Iterator lower_bound(Iterator first, Iterator last, const val)
+	 * => 	return iterator pointing to the first element in the range
+	 * 		[first,last) which has a value not less than 'val'
+	 * Iterator upper_bound(Iterator first, Iterator last, const val)
+	 * =>	return iterator pointing to the first element in the range
+	 * 		[first,last) which has a value greater than 'val'
+	 * sort(Iterator q, Iterator r)
+	 */
+
+	int gfg[] = {5,6,7,7,6,5,5,6};
+
+	vector <int> h1(gfg, gfg + 8); // 5 6 7 7 6 5 5 6
+
+	sort(h1.begin(), h1.end()); // 5 5 5 6 6 6 7 7
+
+	vector <int> :: iterator lower, upper;
+	lower = lower_bound(h1.begin(), h1.end(), 6);
+	upper = upper_bound(h1.begin(), h1.end(), 6);
+
+	cout << "lower_bound for 6 at position : " << (lower - h1.begin()) << '\n';
+	cout << "upper_bound for 6 at position : " << (upper - h1.begin()) << '\n';
+	
 
 	return 0;
 }
